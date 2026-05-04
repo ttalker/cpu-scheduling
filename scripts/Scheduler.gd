@@ -2,14 +2,6 @@ class_name Scheduler
 
 # used a class so you just call Scheduler.method name 
 
-# test objects
-var p1 = Process.new("p1", 0, 2, 0)
-var p2 = Process.new("p1", 1, 4, 0)
-var p3 = Process.new("p1", 2, 3, 0)
-
-# test array
-var test_array = [p1, p2, p3]
-
 static func _clean_copy(processes: Array) -> Array:
 	var clean_copy = [] # where the new copy will be stored
 	for p in processes:
@@ -35,13 +27,11 @@ static func _run_fcfs(processes: Array):
 		p.completion_time = current_time + p.burst_time
 		current_time  = p.completion_time
 		p.compute_stats()
-		timeline.append({ "pid": p.pid, "start": p.start_time, "end": p.finish_time })
+		timeline.append({ "pid": p.pid, "start": p.start_time, "end": p.completion_time })
 
 	return timeline
 
-var result = _run_fcfs(test_array)
-var r = result[0]
-print(r)
+
 
 	
 	
