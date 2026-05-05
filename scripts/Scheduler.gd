@@ -31,7 +31,45 @@ static func _run_fcfs(processes: Array):
 
 	return timeline
 
+# SHORTEST JOB FIRSST NON PREEMPTIVE
 
-
+static func _run_sjf_np(processes: Array):
+	var process = _clean_copy(processes)
+	
+	var timeline = []
+	var current_time = 0
+	var remaining = process.duplicate()
+	while remaining.size > 0:
+		#get the ready queue
+		var ready_queue = process.filter(func(p): return p.arrival_time <= current_time)
+		
+		if ready_queue.is_empty():
+			# Jump to next arrival (idle)
+			var next = remaining.reduce(func(a, b): return a if a.arrival_time < b.arrival_time else b)
+			current_time = next.arrival_time
+			continue
+			
+		# sort by burst time, tie break by arrival time
+		ready_queue.sort_custom(func(a, b):
+			if a.burst_time == b.burst_time:
+				return a.arrival_time < b.arrival_time
+			return a.burst_time < b.burst_time)
+		
+		var p = ready_queue[0]
+		
+		p.start_time  = current_time
+		p.finish_time = current_time + p.burst_time
+		current_time  = p.finish_time
+		p.compute_stats()
+		timeline.append({ "pid": p.pid, "start": p.start_time, "end": p.finish_time })
+		
+		# since this is non-preemptive, after
+		remaining.erase(p)
+	
+	
+	
+	
+	
+	
 	
 	

@@ -8,5 +8,6 @@ var test = [p1, p2, p3]
 
 func _on_button_pressed() -> void:
 	var restult = Scheduler._run_fcfs(test)
-	print(restult[0])
+	for res in restult:
+		print(res)
 	
