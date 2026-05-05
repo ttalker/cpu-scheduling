@@ -35,13 +35,13 @@ static func _run_fcfs(processes: Array):
 
 static func _run_sjf_np(processes: Array):
 	var process = _clean_copy(processes)
-	
 	var timeline = []
 	var current_time = 0
 	var remaining = process.duplicate()
-	while remaining.size > 0:
+	
+	while remaining.size() > 0:
 		#get the ready queue
-		var ready_queue = process.filter(func(p): return p.arrival_time <= current_time)
+		var ready_queue = remaining.filter(func(p): return p.arrival_time <= current_time)
 		
 		if ready_queue.is_empty():
 			# Jump to next arrival (idle)
@@ -58,15 +58,15 @@ static func _run_sjf_np(processes: Array):
 		var p = ready_queue[0]
 		
 		p.start_time  = current_time
-		p.finish_time = current_time + p.burst_time
-		current_time  = p.finish_time
+		p.completion_time = current_time + p.burst_time
+		current_time  = p.completion_time
 		p.compute_stats()
-		timeline.append({ "pid": p.pid, "start": p.start_time, "end": p.finish_time })
+		timeline.append({ "pid": p.pid, "start": p.start_time, "end": p.completion_time })
 		
 		# since this is non-preemptive, after
 		remaining.erase(p)
 	
-	
+	return timeline
 	
 	
 	
