@@ -20,8 +20,8 @@ static func _run_fcfs(processes: Array):
 	var timeline = [] # array of dictionary
 	var current_time = 0
 	
-	for p in processes:
-		if current_time > p.arrival_time:
+	for p in process:
+		if current_time < p.arrival_time:
 			current_time = p.arrival_time  # if arrival time comes later it will assign current time as the arrival leaving a blank
 		p.start_time  = current_time
 		p.completion_time = current_time + p.burst_time
@@ -31,7 +31,7 @@ static func _run_fcfs(processes: Array):
 
 	return timeline
 
-# SHORTEST JOB FIRSST NON PREEMPTIVE
+# SHORTEST JOB FIRST NON PREEMPTIVE
 
 static func _run_sjf_np(processes: Array):
 	var process = _clean_copy(processes)
@@ -67,7 +67,9 @@ static func _run_sjf_np(processes: Array):
 		remaining.erase(p)
 	
 	return timeline
-	
+
+# SHORTEST REMAINING TIME ALGO
+
 static func _run_srt(processes: Array) -> Array:
 	var process = _clean_copy(processes)
 	var timeline = []
@@ -137,6 +139,9 @@ static func _run_srt(processes: Array) -> Array:
 			total_done += 1
 	
 	return _merge_blocks(timeline) 
+	
+
+# DUPLICATE SHI IS MERGED
 
 static func _merge_blocks(timeline: Array) -> Array:
 	if timeline.is_empty():
@@ -151,39 +156,222 @@ static func _merge_blocks(timeline: Array) -> Array:
 			merged.append(cur.duplicate())
 	return merged
 
+# ROUND ROBIN ALGO
+
 static func _run_rr(processes: Array, quantum: int) -> Array:
 	var process = _clean_copy(processes)
 	process.sort_custom(func(a, b): return a.arrival_time < b.arrival_time)
 	
-	var timeline     = []
-	var queue        = []
+	var timeline = []
+	var queue = []
 	var current_time = 0
-	var proc_index   = 0
- 
+	var proc_index = 0
+	
 	queue.append(process[proc_index])
 	proc_index += 1
- 
+	
 	while not queue.is_empty():
 		var p = queue.pop_front()
- 
+		
 		if p.start_time == -1:
 			p.start_time = current_time
- 
+			
 		var slice = min(p.remaining_time, quantum)
 		timeline.append({ "pid": p.pid, "start": current_time, "end": current_time + slice })
- 
-		current_time     += slice
+		
+		current_time += slice
 		p.remaining_time -= slice
- 
+		
 		while proc_index < process.size() and process[proc_index].arrival_time <= current_time:
 			queue.append(process[proc_index])
 			proc_index += 1
- 
+			
 		if p.remaining_time > 0:
 			queue.append(p)
 		else:
 			p.completion_time = current_time
 			p.compute_stats()
- 
+			
 	return timeline	
+
+static func _run_priority_np(processes: Array) -> Array:
+	var process = _clean_copy(processes)
+	var remaining = process.duplicate()
+	var timeline = []
+	var current_time = 0
 	
+	while remaining.size() > 0:
+		var available = remaining.filter(func(p): return p.arrival_time <= current_time)
+		
+		if available.is_empty():
+			var next     = remaining.reduce(func(a, b): return a if a.arrival_time < b.arrival_time else b)
+			current_time = next.arrival_time
+			continue
+			
+		available.sort_custom(func(a, b):
+			if a.priority == b.priority:
+				return a.arrival_time < b.arrival_time
+			return a.priority < b.priority
+		)
+		
+		var p = available[0]
+		p.start_time = current_time
+		p.completion_time = current_time + p.burst_time
+		current_time = p.completion_time
+		p.compute_stats()
+		
+		timeline.append({ "pid": p.pid, "start": p.start_time, "end": p.completion_time })
+		remaining.erase(p)
+		
+	return timeline
+	
+static func _run_priority_p(processes: Array) -> Array:
+	var process = _clean_copy(processes)
+	var timeline = []
+	var current_time = 0
+	var total_done = 0
+	var n = process.size()
+	while total_done < n:
+		
+		var ready_queue = process.filter(func(x):
+			return x.arrival_time <= current_time and x.remaining_time > 0
+		)
+		
+		if ready_queue.is_empty():
+			var unfinished = process.filter(func(x): return x.remaining_time > 0)
+			if unfinished.is_empty():
+				break
+				
+			var next = unfinished.reduce(func(a, b): return a if a.arrival_time < b.arrival_time else b)
+			current_time = next.arrival_time
+			continue
+			
+		ready_queue.sort_custom(func(a, b):
+			if a.priority == b.priority:
+				return a.arrival_time < b.arrival_time
+			return a.priority < b.priority
+		)
+		
+		var p = ready_queue[0]
+		
+		if p.start_time == -1:
+			p.start_time = current_time
+			
+		var not_yet_arrived = process.filter(func(x):
+			return x.arrival_time > current_time and x.remaining_time > 0
+		)
+		
+		var next_arrival: int
+		if not_yet_arrived.is_empty():
+			next_arrival = current_time + p.remaining_time
+		else:
+			var nearest = not_yet_arrived.reduce(func(a, b): return a if a.arrival_time < b.arrival_time else b)
+			next_arrival = nearest.arrival_time
+			
+		var slice = min(p.remaining_time, next_arrival - current_time)
+		if slice <= 0:
+			slice = 1
+			
+		timeline.append({ "pid": p.pid, "start": current_time, "end": current_time + slice })
+		
+		p.remaining_time -= slice
+		current_time += slice
+		
+		if p.remaining_time == 0:
+			p.completion_time = current_time
+			p.compute_stats()
+			total_done += 1
+			
+	return _merge_blocks(timeline)
+
+# PRIORITY WITH RR ALGO 
+
+static func _run_priority_rr(processes: Array, quantum: int) -> Array:
+	var process = _clean_copy(processes)
+	process.sort_custom(func(a, b): return a.arrival_time < b.arrival_time)
+	
+	var timeline = []
+	var current_time = 0
+	var total_done = 0
+	var n = process.size()
+	
+	var queues       : Dictionary = {}
+	var proc_index   : int = 0  
+	
+	while proc_index < process.size() and process[proc_index].arrival_time <= current_time:
+		var p = process[proc_index]
+		if not queues.has(p.priority):
+			queues[p.priority] = []
+		queues[p.priority].append(p)
+		proc_index += 1
+		
+	while total_done < n:
+		
+		# Find the highest priority level (lowest number) that has a non-empty queue
+		var active_level = -1
+		var sorted_levels = queues.keys()
+		sorted_levels.sort()
+		
+		for level in sorted_levels:
+			if not queues[level].is_empty():
+				active_level = level
+				break
+				
+		# Nothing is ready yet — jump to next arrival
+		if active_level == -1:
+			if proc_index < process.size():
+				current_time = process[proc_index].arrival_time
+				# Enqueue all processes arriving at this time
+				while proc_index < process.size() and process[proc_index].arrival_time <= current_time:
+					var p = process[proc_index]
+					if not queues.has(p.priority):
+						queues[p.priority] = []
+					queues[p.priority].append(p)
+					proc_index += 1
+			continue
+			
+		# Pop from the front of the active queue — this is the RR rotation
+		var p = queues[active_level].pop_front()
+		
+		if p.start_time == -1:
+			p.start_time = current_time
+			
+		var slice = min(p.remaining_time, quantum)
+		timeline.append({ "pid": p.pid, "start": current_time, "end": current_time + slice })
+		
+		current_time     += slice
+		p.remaining_time -= slice
+		
+		# Enqueue any processes that arrived during this slice
+		while proc_index < process.size() and process[proc_index].arrival_time <= current_time:
+			var np = process[proc_index]
+			if not queues.has(np.priority):
+				queues[np.priority] = []
+			queues[np.priority].append(np)
+			proc_index += 1
+			
+		if p.remaining_time > 0:
+			# Goes to the BACK of its own priority queue
+			queues[active_level].append(p)
+		else:
+			p.completion_time = current_time
+			p.compute_stats()
+			total_done += 1
+			
+	return timeline
+	
+
+static func _compute_averages(processes: Array) -> Dictionary:
+	var total_wt = 0
+	var total_tat = 0
+	var total_rt = 0
+	for p in processes:
+		total_wt += p.waiting_time
+		total_tat += p.turnaround_time
+		total_rt += p.response_time
+	var n = processes.size()
+	return {
+		"avg_wt":  float(total_wt)  / n,
+		"avg_tat": float(total_tat) / n,
+		"avg_rt":  float(total_rt)  / n
+	}
