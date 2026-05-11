@@ -9,6 +9,5 @@ var test = [p1, p2, p3, p4]
 
 func _on_button_pressed() -> void:
 	var restult = Scheduler._run_priority_rr(test, 2)
-	for res in restult:
-		print(res)
+	$GanttChart.display(restult, [])
 	
