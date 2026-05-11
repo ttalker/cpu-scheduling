@@ -81,7 +81,7 @@ theme_override_font_sizes/font_size = 44
 theme_override_styles/normal = SubResource("StyleBoxFlat_l6cm7")
 text = "SIMULATION MODE"
 
-[node name="Simulation Button2" type="Button" parent="VBoxContainer" unique_id=109454972]
+[node name="Quit Button" type="Button" parent="VBoxContainer" unique_id=109454972]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -91,3 +91,4 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_l6cm7")
 text = "QUIT"
 
 [connection signal="pressed" from="VBoxContainer/Simulation Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit Button" to="." method="_on_quit_button_pressed"]
