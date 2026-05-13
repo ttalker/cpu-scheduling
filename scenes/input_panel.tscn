@@ -28,3 +28,21 @@ size_flags_horizontal = 0
 [node name="Process Label" type="Label" parent="ProcessSection" unique_id=2068315364]
 layout_mode = 2
 text = "Process"
+
+[node name="ProcessList" type="VBoxContainer" parent="ProcessSection" unique_id=480740400]
+layout_mode = 2
+
+[node name="AddRowBtn" type="Button" parent="ProcessSection" unique_id=274771509]
+layout_mode = 2
+text = "Add Process"
+
+[node name="ButtonsRow" type="HBoxContainer" parent="." unique_id=1853871143]
+layout_mode = 2
+
+[node name="RunButton" type="Button" parent="ButtonsRow" unique_id=1922076210]
+layout_mode = 2
+text = "Run Simulation"
+
+[node name="ResetButton" type="Button" parent="ButtonsRow" unique_id=166861288]
+layout_mode = 2
+text = "Reset"
