@@ -17,14 +17,14 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Scheduling Algorithm "
 
-[node name="AlgoOptions" type="OptionButton" parent="Algo Section" unique_id=789310505]
+[node name="AlgorithmDropdown" type="OptionButton" parent="Algo Section" unique_id=789310505]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="ProcessLists" type="VBoxContainer" parent="." unique_id=1276474437]
+[node name="ProcessSection" type="VBoxContainer" parent="." unique_id=1276474437]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Process Label" type="Label" parent="ProcessLists" unique_id=2068315364]
+[node name="Process Label" type="Label" parent="ProcessSection" unique_id=2068315364]
 layout_mode = 2
 text = "Process"

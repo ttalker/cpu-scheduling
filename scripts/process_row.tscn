@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bua52xmp2ych"]
 
+[ext_resource type="Script" uid="uid://c3dn6ubkiwyjl" path="res://scenes/process_row.gd" id="1_6sm8s"]
+
 [node name="ProcessRow" type="Control" unique_id=1779512428]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6sm8s")
 metadata/_edit_lock_ = true
 
 [node name="Inputs" type="HBoxContainer" parent="." unique_id=1686734176]
@@ -18,11 +21,15 @@ theme_override_constants/separation = 95
 [node name="IDLabel" type="Label" parent="Inputs" unique_id=954037977]
 layout_mode = 2
 
-[node name="ArrivalTime" type="LineEdit" parent="Inputs" unique_id=1707258230]
+[node name="ArrivalInput" type="LineEdit" parent="Inputs" unique_id=1707258230]
 layout_mode = 2
 
-[node name="BurstTime" type="LineEdit" parent="Inputs" unique_id=425599960]
+[node name="BurstInput" type="LineEdit" parent="Inputs" unique_id=425599960]
 layout_mode = 2
 
-[node name="Priority" type="LineEdit" parent="Inputs" unique_id=739324709]
+[node name="PriorityInput" type="LineEdit" parent="Inputs" unique_id=739324709]
 layout_mode = 2
+
+[node name="DeleteBtn" type="Button" parent="Inputs" unique_id=2113351038]
+layout_mode = 2
+text = "X"
