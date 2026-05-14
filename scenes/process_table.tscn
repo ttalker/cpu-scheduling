@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bll7nawc3dudy"]
+
+[ext_resource type="Script" uid="uid://cd46w4ckmc5ql" path="res://scripts/process_table.gd" id="1_ugiux"]
+
+[node name="ProcessTable" type="VBoxContainer" unique_id=2126139668]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ugiux")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="." unique_id=1652697932]
+layout_mode = 2
+text = "Process Table"
+
+[node name="TableContainer" type="VBoxContainer" parent="." unique_id=1760050920]
+layout_mode = 2
+
+[node name="HeaderRow" type="HBoxContainer" parent="TableContainer" unique_id=1479989570]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ProcessID" type="Label" parent="TableContainer/HeaderRow" unique_id=1562786222]
+layout_mode = 2
+text = "Process ID"
+
+[node name="ArrivalTime" type="Label" parent="TableContainer/HeaderRow" unique_id=1942694932]
+layout_mode = 2
+text = "Arrival Time"
+
+[node name="BurstTime" type="Label" parent="TableContainer/HeaderRow" unique_id=619295187]
+layout_mode = 2
+text = "Burst Time"
+
+[node name="StartTime" type="Label" parent="TableContainer/HeaderRow" unique_id=197900514]
+layout_mode = 2
+text = "Start Time"
+
+[node name="CompletionTime" type="Label" parent="TableContainer/HeaderRow" unique_id=1279095335]
+layout_mode = 2
+text = "Completion Time"
+
+[node name="WaitingTime" type="Label" parent="TableContainer/HeaderRow" unique_id=1916946175]
+layout_mode = 2
+text = "Waiting Time"
+
+[node name="TurnaroundTime" type="Label" parent="TableContainer/HeaderRow" unique_id=1178594780]
+layout_mode = 2
+text = "Turnaround Time"

@@ -1,23 +1,26 @@
 [gd_scene format=3 uid="uid://c2sq3yj3cdw42"]
 
+[ext_resource type="Script" uid="uid://d3oj6hpagpe04" path="res://scripts/input_panel.gd" id="1_pjg87"]
+
 [node name="InputPanel" type="VBoxContainer" unique_id=1014239533]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pjg87")
 metadata/_edit_lock_ = true
 
-[node name="Algo Section" type="VBoxContainer" parent="." unique_id=1217298522]
+[node name="AlgorithmSection" type="VBoxContainer" parent="." unique_id=1217298522]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Option Label" type="Label" parent="Algo Section" unique_id=1334211649]
+[node name="Option Label" type="Label" parent="AlgorithmSection" unique_id=1334211649]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Scheduling Algorithm "
 
-[node name="AlgorithmDropdown" type="OptionButton" parent="Algo Section" unique_id=789310505]
+[node name="AlgorithmDropdown" type="OptionButton" parent="AlgorithmSection" unique_id=789310505]
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -29,8 +32,16 @@ size_flags_horizontal = 0
 layout_mode = 2
 text = "Process"
 
-[node name="ProcessList" type="VBoxContainer" parent="ProcessSection" unique_id=480740400]
+[node name="ScrollContainer" type="ScrollContainer" parent="ProcessSection" unique_id=330222346]
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ProcessList" type="VBoxContainer" parent="ProcessSection/ScrollContainer" unique_id=480740400]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 45
 
 [node name="AddRowBtn" type="Button" parent="ProcessSection" unique_id=274771509]
 layout_mode = 2

@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://wedcisuyjv16"]
 
 [ext_resource type="Script" uid="uid://b40hic03m4sj1" path="res://scripts/simulation_menu.gd" id="1_ho4dl"]
+[ext_resource type="PackedScene" uid="uid://c2sq3yj3cdw42" path="res://scenes/input_panel.tscn" id="2_akwln"]
 [ext_resource type="PackedScene" uid="uid://b1v2sn7rsjjg2" path="res://scenes/gantt_chart.tscn" id="2_ng1av"]
+[ext_resource type="PackedScene" uid="uid://ct8beifjx3mt7" path="res://scenes/results_panel.tscn" id="3_qips4"]
+[ext_resource type="PackedScene" uid="uid://bll7nawc3dudy" path="res://scenes/process_table.tscn" id="4_qips4"]
 
 [node name="Main Container" type="Control" unique_id=265517560]
 layout_mode = 3
@@ -13,28 +16,30 @@ grow_vertical = 2
 script = ExtResource("1_ho4dl")
 metadata/_edit_lock_ = true
 
-[node name="Title Label" type="Label" parent="." unique_id=1562602095]
-layout_mode = 0
-offset_right = 202.0
-offset_bottom = 23.0
-text = "CPU Scheduling Algorithm"
-
-[node name="GanttChart" parent="." unique_id=296337489 instance=ExtResource("2_ng1av")]
+[node name="Main Layout" type="HBoxContainer" parent="." unique_id=2062866973]
 layout_mode = 1
-
-[node name="Button" type="Button" parent="." unique_id=1278153187]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "TEST ME"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="InputPanel" parent="Main Layout" unique_id=1014239533 instance=ExtResource("2_akwln")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Layout" unique_id=1667324483]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="ResultsPanel" parent="Main Layout/VBoxContainer" unique_id=2025984771 instance=ExtResource("3_qips4")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="GanttChart" parent="Main Layout/VBoxContainer" unique_id=2079141649 instance=ExtResource("2_ng1av")]
+layout_mode = 2
+
+[node name="ProcessTable" parent="Main Layout/VBoxContainer" unique_id=2126139668 instance=ExtResource("4_qips4")]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2

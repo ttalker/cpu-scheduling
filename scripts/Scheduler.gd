@@ -288,78 +288,98 @@ static func _run_priority_p(processes: Array) -> Array:
 
 static func _run_priority_rr(processes: Array, quantum: int) -> Array:
 	var process = _clean_copy(processes)
-	process.sort_custom(func(a, b): return a.arrival_time < b.arrival_time)
 	
-	var timeline = []
-	var current_time = 0
-	var total_done = 0
-	var n = process.size()
+	process.sort_custom(func(a, b):
+		if a.priority == b.priority:
+			return a.arrival_time < b.arrival_time
+		return a.priority < b.priority
+	)
 	
-	var queues       : Dictionary = {}
-	var proc_index   : int = 0  
-	
-	while proc_index < process.size() and process[proc_index].arrival_time <= current_time:
+	var timeline : Array = []
+	var queues : Dictionary = {}
+	var current_time : int = 0
+	var total_done : int = 0
+	var n : int = process.size()
+	var proc_index : int = 0
+
+	# enqueue all processes available at t=0
+	while proc_index < n and process[proc_index].arrival_time <= current_time:
 		var p = process[proc_index]
 		if not queues.has(p.priority):
 			queues[p.priority] = []
 		queues[p.priority].append(p)
 		proc_index += 1
-		
+
 	while total_done < n:
-		
-		# Find the highest priority level (lowest number) that has a non-empty queue
-		var active_level = -1
-		var sorted_levels = queues.keys()
-		sorted_levels.sort()
-		
-		for level in sorted_levels:
-			if not queues[level].is_empty():
-				active_level = level
-				break
-				
-		# Nothing is ready yet — jump to next arrival
+
+		# pull in anything that has arrived by now
+		while proc_index < n and process[proc_index].arrival_time <= current_time:
+			var p = process[proc_index]
+			if not queues.has(p.priority):
+				queues[p.priority] = []
+			queues[p.priority].append(p)
+			proc_index += 1
+
+		# pick highest priority (lowest number) queue with work
+		var active_level = _get_highest_priority_level(queues)
+
+		# idle — nothing ready yet, jump to next arrival
 		if active_level == -1:
-			if proc_index < process.size():
+			if proc_index < n:
 				current_time = process[proc_index].arrival_time
-				# Enqueue all processes arriving at this time
-				while proc_index < process.size() and process[proc_index].arrival_time <= current_time:
-					var p = process[proc_index]
-					if not queues.has(p.priority):
-						queues[p.priority] = []
-					queues[p.priority].append(p)
-					proc_index += 1
 			continue
-			
-		# Pop from the front of the active queue — this is the RR rotation
+
+		# pop from the front of that priority queue
 		var p = queues[active_level].pop_front()
-		
+
 		if p.start_time == -1:
 			p.start_time = current_time
+
+		var slice_start  : int  = current_time
+		var time_ran     : int  = 0
+		var preempted    : bool = false
+
+		# run tick by tick up to quantum
+		while time_ran < quantum and p.remaining_time > 0:
+			current_time += 1
+			time_ran += 1
+			p.remaining_time -= 1
 			
-		var slice = min(p.remaining_time, quantum)
-		timeline.append({ "pid": p.pid, "start": current_time, "end": current_time + slice })
+			# enqueue arrivals during this tick
+			while proc_index < n and process[proc_index].arrival_time <= current_time:
+				var np = process[proc_index]
+				if not queues.has(np.priority):
+					queues[np.priority] = []
+				queues[np.priority].append(np)
+				proc_index += 1
+				
+			# preempt only if strictly higher priority arrived
+			var best_now = _get_highest_priority_level(queues)
+			if best_now != -1 and best_now < active_level:
+				preempted = true
+				break
+				
 		
-		current_time     += slice
-		p.remaining_time -= slice
+		timeline.append({ "pid": p.pid, "start": slice_start, "end": current_time })
 		
-		# Enqueue any processes that arrived during this slice
-		while proc_index < process.size() and process[proc_index].arrival_time <= current_time:
-			var np = process[proc_index]
-			if not queues.has(np.priority):
-				queues[np.priority] = []
-			queues[np.priority].append(np)
-			proc_index += 1
-			
-		if p.remaining_time > 0:
-			# Goes to the BACK of its own priority queue
-			queues[active_level].append(p)
-		else:
+		if p.remaining_time == 0:
 			p.completion_time = current_time
 			p.compute_stats()
 			total_done += 1
-			
-	return timeline
-	
+		else:
+			if not queues.has(active_level):
+				queues[active_level] = []
+			queues[active_level].append(p)
+
+	return timeline  
+
+static func _get_highest_priority_level(queues: Dictionary) -> int:
+	var best = -1
+	for level in queues.keys():
+		if not queues[level].is_empty():
+			if best == -1 or level < best:
+				best = level
+	return best
 
 static func _compute_averages(processes: Array) -> Dictionary:
 	var total_wt = 0
@@ -368,7 +388,6 @@ static func _compute_averages(processes: Array) -> Dictionary:
 	for p in processes:
 		total_wt += p.waiting_time
 		total_tat += p.turnaround_time
-		total_rt += p.response_time
 	var n = processes.size()
 	return {
 		"avg_wt":  float(total_wt)  / n,

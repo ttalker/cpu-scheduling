@@ -2,11 +2,11 @@ extends Control
 
 signal row_deleted
 
-@onready var id_label       = $IDLabel
-@onready var arrival_input  = $ArrivalInput
-@onready var burst_input    = $BurstInput
-@onready var priority_input = $PriorityInput
-@onready var delete_btn     = $DeleteBtn
+@onready var id_label = $Inputs/IDLabel
+@onready var arrival_input = $Inputs/ArrivalInput
+@onready var burst_input = $Inputs/BurstInput
+@onready var priority_input = $Inputs/PriorityInput
+@onready var delete_btn = $Inputs/DeleteBtn
 
 func _ready():
 	delete_btn.pressed.connect(_on_delete_pressed)
@@ -22,7 +22,7 @@ func get_data() -> Dictionary:
 		"id":       id_label.text,
 		"arrival":  arrival_input.text.to_int(),
 		"burst":    burst_input.text.to_int(),
-		"priority": priority_input.value if priority_input.visible else 0
+		"priority": priority_input.text.to_int() if priority_input.visible else 0
 	}
 
 func _on_delete_pressed():

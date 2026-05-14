@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://ct8beifjx3mt7"]
+
+[ext_resource type="Script" uid="uid://s3qjre5ftg8n" path="res://scripts/results_panel.gd" id="1_ccmgd"]
+
+[node name="ResultsPanel" type="HBoxContainer" unique_id=2025984771]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+script = ExtResource("1_ccmgd")
+metadata/_edit_lock_ = true
+
+[node name="StatCard_AvgWait" type="VBoxContainer" parent="." unique_id=1962293444]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatCard_AvgWait" unique_id=352588274]
+layout_mode = 2
+text = "Average Waiting Time"
+
+[node name="ValueLabel" type="Label" parent="StatCard_AvgWait" unique_id=709210394]
+layout_mode = 2
+text = "Default -"
+
+[node name="StatCard_AvgTA" type="VBoxContainer" parent="." unique_id=778548939]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatCard_AvgTA" unique_id=2062936741]
+layout_mode = 2
+text = "Average Turnaround Time"
+
+[node name="ValueLabel" type="Label" parent="StatCard_AvgTA" unique_id=1781827390]
+layout_mode = 2
+text = "Default -"
+
+[node name="StatCard_CPU" type="VBoxContainer" parent="." unique_id=746709448]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatCard_CPU" unique_id=295986111]
+layout_mode = 2
+text = "CPU Utilization"
+
+[node name="ValueLabel" type="Label" parent="StatCard_CPU" unique_id=1921438168]
+layout_mode = 2
+text = "Default -"
+
+[node name="StatCard_Total" type="VBoxContainer" parent="." unique_id=315064532]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatCard_Total" unique_id=985667037]
+layout_mode = 2
+text = "Total Time"
+
+[node name="ValueLabel" type="Label" parent="StatCard_Total" unique_id=2017861869]
+layout_mode = 2
+text = "Default -"

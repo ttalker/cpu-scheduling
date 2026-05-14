@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bua52xmp2ych"]
 
-[ext_resource type="Script" uid="uid://c3dn6ubkiwyjl" path="res://scenes/process_row.gd" id="1_6sm8s"]
+[ext_resource type="Script" uid="uid://c3dn6ubkiwyjl" path="res://scripts/process_row.gd" id="1_wuve6"]
 
 [node name="ProcessRow" type="Control" unique_id=1779512428]
 layout_mode = 3
@@ -9,14 +9,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_6sm8s")
+script = ExtResource("1_wuve6")
 metadata/_edit_lock_ = true
 
 [node name="Inputs" type="HBoxContainer" parent="." unique_id=1686734176]
 layout_mode = 0
 offset_right = 490.0
 offset_bottom = 31.0
-theme_override_constants/separation = 95
+theme_override_constants/separation = 40
 
 [node name="IDLabel" type="Label" parent="Inputs" unique_id=954037977]
 layout_mode = 2
