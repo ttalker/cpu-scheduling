@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://wedcisuyjv16"]
 
+[ext_resource type="Theme" uid="uid://b75o0whqucguo" path="res://themes/main_theme.tres" id="1_c77t8"]
 [ext_resource type="Script" uid="uid://b40hic03m4sj1" path="res://scripts/simulation_menu.gd" id="1_ho4dl"]
 [ext_resource type="PackedScene" uid="uid://c2sq3yj3cdw42" path="res://scenes/input_panel.tscn" id="2_akwln"]
 [ext_resource type="PackedScene" uid="uid://b1v2sn7rsjjg2" path="res://scenes/gantt_chart.tscn" id="2_ng1av"]
@@ -13,8 +14,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_c77t8")
 script = ExtResource("1_ho4dl")
 metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1894896882]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05882353, 0.06666667, 0.09019608, 1)
 
 [node name="Main Layout" type="HBoxContainer" parent="." unique_id=2062866973]
 layout_mode = 1

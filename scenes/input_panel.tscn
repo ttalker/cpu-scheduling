@@ -45,6 +45,7 @@ theme_override_constants/separation = 45
 
 [node name="AddRowBtn" type="Button" parent="ProcessSection" unique_id=274771509]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "Add Process"
 
 [node name="ButtonsRow" type="HBoxContainer" parent="." unique_id=1853871143]
