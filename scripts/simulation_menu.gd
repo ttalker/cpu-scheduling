@@ -1,10 +1,10 @@
 # simulation_scene.gd
 extends Control
 
-@onready var input_panel   = $"Main Layout/InputPanel"
-@onready var results_panel = $"Main Layout/VBoxContainer/ResultsPanel"
-@onready var gantt_chart   = $"Main Layout/VBoxContainer/GanttChart"
-@onready var process_table = $"Main Layout/VBoxContainer/ProcessTable"
+@onready var input_panel = $"Main Layout/PanelContainer/MarginContainer/InputPanel"
+@onready var results_panel = $"Main Layout/VBoxContainer/PanelContainer/MarginContainer/ResultsPanel"
+@onready var gantt_chart = $"Main Layout/VBoxContainer/PanelContainer2/VBoxContainer/MarginContainer/GanttChart"
+@onready var process_table = $"Main Layout/VBoxContainer/PanelContainer3/MarginContainer/ProcessTable"
 
 func _ready():
 	input_panel.simulation_requested.connect(_on_simulation_requested)
@@ -62,7 +62,7 @@ func _on_simulation_requested(algo: String, raw_data: Array, quantum: int):
 func _apply_stats(processes: Array, timeline: Array) -> void:
 	# Build a lookup of first start and last end per pid from timeline
 	var first_start : Dictionary = {}
-	var last_end    : Dictionary = {}
+	var last_end : Dictionary = {}
 
 	for block in timeline:
 		var pid = block["pid"]

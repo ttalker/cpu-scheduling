@@ -335,9 +335,9 @@ static func _run_priority_rr(processes: Array, quantum: int) -> Array:
 		if p.start_time == -1:
 			p.start_time = current_time
 
-		var slice_start  : int  = current_time
-		var time_ran     : int  = 0
-		var preempted    : bool = false
+		var slice_start : int  = current_time
+		var time_ran : int  = 0
+		var preempted : bool = false
 
 		# run tick by tick up to quantum
 		while time_ran < quantum and p.remaining_time > 0:
@@ -370,7 +370,7 @@ static func _run_priority_rr(processes: Array, quantum: int) -> Array:
 			if not queues.has(active_level):
 				queues[active_level] = []
 			queues[active_level].append(p)
-
+			
 	return timeline  
 
 static func _get_highest_priority_level(queues: Dictionary) -> int:
