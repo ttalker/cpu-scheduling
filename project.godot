@@ -13,7 +13,7 @@ config_version=5
 config/name="cpu-scheduling"
 run/main_scene="uid://cwbsye3vp8yud"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://c5410g4qutd0c"
 
 [display]
 

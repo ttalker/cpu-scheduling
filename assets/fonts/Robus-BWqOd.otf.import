@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://pddax1fvot8o"
-path="res://.godot/imported/Robus-BWqOd.otf-f0b492559349ee5b21b41a657a09ec71.fontdata"
+path="res://.godot/imported/Robus-BWqOd.otf-9357ba50ffdb72dd95940af64b0ce3d3.fontdata"
 
 [deps]
 
-source_file="res://assets/Robus-BWqOd.otf"
-dest_files=["res://.godot/imported/Robus-BWqOd.otf-f0b492559349ee5b21b41a657a09ec71.fontdata"]
+source_file="res://assets/fonts/Robus-BWqOd.otf"
+dest_files=["res://.godot/imported/Robus-BWqOd.otf-9357ba50ffdb72dd95940af64b0ce3d3.fontdata"]
 
 [params]
 

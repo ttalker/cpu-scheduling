@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cwbsye3vp8yud"]
 
 [ext_resource type="Script" uid="uid://cud4c01tdxdlb" path="res://scripts/main_menu.gd" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://bod6hh16otcm1" path="res://assets/menu_bg_image.png" id="2_wu84c"]
-[ext_resource type="FontFile" uid="uid://pddax1fvot8o" path="res://assets/Robus-BWqOd.otf" id="3_8ln24"]
-[ext_resource type="FontFile" uid="uid://bdfg014tdw0ur" path="res://assets/VeniteAdoremus-rgRBA.ttf" id="4_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://bod6hh16otcm1" path="res://assets/images/menu_bg_image.png" id="2_wu84c"]
+[ext_resource type="FontFile" uid="uid://pddax1fvot8o" path="res://assets/fonts/Robus-BWqOd.otf" id="3_8ln24"]
+[ext_resource type="FontFile" uid="uid://bdfg014tdw0ur" path="res://assets/fonts/VeniteAdoremus-rgRBA.ttf" id="4_rtw2f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1go"]
 texture = ExtResource("2_wu84c")
