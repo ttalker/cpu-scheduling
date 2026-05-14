@@ -19,7 +19,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Average Waiting Time"
 
-[node name="ValueLabel" type="Label" parent="StatCard_AvgWait" unique_id=709210394]
+[node name="WaitValue" type="Label" parent="StatCard_AvgWait" unique_id=709210394]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Default -"
 
@@ -30,7 +31,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Average Turnaround Time"
 
-[node name="ValueLabel" type="Label" parent="StatCard_AvgTA" unique_id=1781827390]
+[node name="TAValue" type="Label" parent="StatCard_AvgTA" unique_id=1781827390]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Default -"
 
@@ -41,7 +43,8 @@ layout_mode = 2
 layout_mode = 2
 text = "CPU Utilization"
 
-[node name="ValueLabel" type="Label" parent="StatCard_CPU" unique_id=1921438168]
+[node name="CPUValue" type="Label" parent="StatCard_CPU" unique_id=1921438168]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Default -"
 
@@ -52,6 +55,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Total Time"
 
-[node name="ValueLabel" type="Label" parent="StatCard_Total" unique_id=2017861869]
+[node name="TotalValue" type="Label" parent="StatCard_Total" unique_id=2017861869]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Default -"

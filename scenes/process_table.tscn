@@ -20,10 +20,12 @@ layout_mode = 2
 
 [node name="HeaderRow" type="HBoxContainer" parent="TableContainer" unique_id=1479989570]
 layout_mode = 2
-theme_override_constants/separation = 20
+size_flags_horizontal = 0
+theme_override_constants/separation = 50
 
 [node name="ProcessID" type="Label" parent="TableContainer/HeaderRow" unique_id=1562786222]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Process ID"
 
 [node name="ArrivalTime" type="Label" parent="TableContainer/HeaderRow" unique_id=1942694932]

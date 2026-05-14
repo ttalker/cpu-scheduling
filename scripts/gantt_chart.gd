@@ -1,19 +1,21 @@
 extends Control
 
-var timeline:  Array = []
+var timeline: Array = []
 var processes: Array = []
 
+# block constants
+
 const BLOCK_H  = 54
-const SCALE    = 44
+const SCALE = 44
 const MARGIN_X = 24
 const MARGIN_Y = 32
 const TICK_GAP = 10
-const MIN_W    = 600
+const MIN_W = 600
 
 var _scale: int = SCALE
 
-var _pid_colors  : Dictionary = {}
-var _color_index : int        = 0
+var _pid_colors : Dictionary = {}
+var _color_index : int = 0
 var _palette = [
 	Color("#4A90D9"),
 	Color("#E8734A"),
@@ -29,24 +31,28 @@ func _ready():
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	custom_minimum_size   = Vector2(MIN_W, BLOCK_H + MARGIN_Y + 40)
 
+# Call this func to display
+
 func display(new_timeline: Array, new_processes: Array) -> void:
-	timeline     = new_timeline
-	processes    = new_processes
-	_pid_colors  = {}
+	timeline = new_timeline
+	processes = new_processes
+	_pid_colors = {}
 	_color_index = 0
 	_resize()
 	queue_redraw()
+
+# The draw function
 
 func _draw() -> void:
 	if timeline.is_empty():
 		return
 
-	var font      = ThemeDB.fallback_font
+	var font = ThemeDB.fallback_font
 	var font_size = 14
 
 	for block in timeline:
-		var x    = MARGIN_X + block["start"] * _scale
-		var w    = (block["end"] - block["start"]) * _scale
+		var x = MARGIN_X + block["start"] * _scale
+		var w = (block["end"] - block["start"]) * _scale
 		var rect = Rect2(x, MARGIN_Y, w, BLOCK_H)
 
 		var color = _get_color(block["pid"])
@@ -58,7 +64,7 @@ func _draw() -> void:
 		draw_string(font, Vector2(label_x, label_y), block["pid"],
 			HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color.WHITE)
 
-	var tick_y      = MARGIN_Y + BLOCK_H + TICK_GAP
+	var tick_y = MARGIN_Y + BLOCK_H + TICK_GAP
 	var drawn_ticks : Array = []
 	for block in timeline:
 		if not drawn_ticks.has(block["start"]):
@@ -78,8 +84,8 @@ func _resize() -> void:
 	if timeline.is_empty():
 		return
 	var total_time = timeline[timeline.size() - 1]["end"]
-	_scale         = max(10, min(SCALE, 800 / max(total_time, 1)))
-	var w          = max(total_time * _scale + MARGIN_X * 2, MIN_W)
+	_scale = max(10, min(SCALE, 800 / max(total_time, 1)))
+	var w = max(total_time * _scale + MARGIN_X * 2, MIN_W)
 	custom_minimum_size = Vector2(w, BLOCK_H + MARGIN_Y + 40)
 
 func _get_color(pid: String) -> Color:
@@ -87,11 +93,12 @@ func _get_color(pid: String) -> Color:
 		_pid_colors[pid] = _palette[_color_index % _palette.size()]
 		_color_index += 1
 	return _pid_colors[pid]
-	
+
+# for reset
 func reset():
-	timeline  = []
+	timeline = []
 	processes = []
-	_pid_colors  = {}
+	_pid_colors = {}
 	_color_index = 0
 	custom_minimum_size = Vector2(MIN_W, BLOCK_H + MARGIN_Y + 40)
 	queue_redraw()

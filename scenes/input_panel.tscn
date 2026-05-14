@@ -11,18 +11,39 @@ grow_vertical = 2
 script = ExtResource("1_pjg87")
 metadata/_edit_lock_ = true
 
-[node name="AlgorithmSection" type="VBoxContainer" parent="." unique_id=1217298522]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2052886102]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="AlgorithmSection" type="VBoxContainer" parent="MarginContainer" unique_id=1217298522]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Option Label" type="Label" parent="AlgorithmSection" unique_id=1334211649]
+[node name="Option Label" type="Label" parent="MarginContainer/AlgorithmSection" unique_id=1334211649]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Scheduling Algorithm "
 
-[node name="AlgorithmDropdown" type="OptionButton" parent="AlgorithmSection" unique_id=789310505]
+[node name="AlgorithmDropdown" type="OptionButton" parent="MarginContainer/AlgorithmSection" unique_id=789310505]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+
+[node name="QuantumSection" type="HBoxContainer" parent="." unique_id=294058828]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="QuantumSection" unique_id=1120849539]
+layout_mode = 2
+text = "Time Quantum"
+
+[node name="QuantumInput" type="SpinBox" parent="QuantumSection" unique_id=716364853]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="ProcessSection" type="VBoxContainer" parent="." unique_id=1276474437]
 layout_mode = 2
@@ -30,31 +51,78 @@ size_flags_horizontal = 0
 
 [node name="Process Label" type="Label" parent="ProcessSection" unique_id=2068315364]
 layout_mode = 2
-text = "Process"
+text = "Process Input"
+
+[node name="HeaderRow" type="HBoxContainer" parent="ProcessSection" unique_id=693255286]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="ProcessSection/HeaderRow" unique_id=1224022843]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "ID"
+
+[node name="Label2" type="Label" parent="ProcessSection/HeaderRow" unique_id=759590286]
+layout_mode = 2
+text = "Arrival"
+
+[node name="Label3" type="Label" parent="ProcessSection/HeaderRow" unique_id=1636475251]
+layout_mode = 2
+text = "Burst"
+
+[node name="PriorityHeader" type="Label" parent="ProcessSection/HeaderRow" unique_id=1776340958]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Priority"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ProcessSection" unique_id=330222346]
-custom_minimum_size = Vector2(400, 200)
+custom_minimum_size = Vector2(400, 500)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
 [node name="ProcessList" type="VBoxContainer" parent="ProcessSection/ScrollContainer" unique_id=480740400]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 45
 
-[node name="AddRowBtn" type="Button" parent="ProcessSection" unique_id=274771509]
+[node name="MarginContainer" type="MarginContainer" parent="ProcessSection" unique_id=874869236]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 13
+
+[node name="AddRowBtn" type="Button" parent="ProcessSection/MarginContainer" unique_id=274771509]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Add Process"
+expand_icon = true
 
-[node name="ButtonsRow" type="HBoxContainer" parent="." unique_id=1853871143]
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1104636229]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 11
 
-[node name="RunButton" type="Button" parent="ButtonsRow" unique_id=1922076210]
+[node name="ButtonsRow" type="HBoxContainer" parent="MarginContainer2" unique_id=1853871143]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 50
+
+[node name="RunButton" type="Button" parent="MarginContainer2/ButtonsRow" unique_id=1922076210]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
 layout_mode = 2
 text = "Run Simulation"
 
-[node name="ResetButton" type="Button" parent="ButtonsRow" unique_id=166861288]
+[node name="ResetButton" type="Button" parent="MarginContainer2/ButtonsRow" unique_id=166861288]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Reset"

@@ -1,10 +1,10 @@
 # simulation_scene.gd
 extends Control
 
-@onready var input_panel = $"Main Layout/PanelContainer/MarginContainer/InputPanel"
-@onready var results_panel = $"Main Layout/VBoxContainer/PanelContainer/MarginContainer/ResultsPanel"
-@onready var gantt_chart = $"Main Layout/VBoxContainer/PanelContainer2/VBoxContainer/MarginContainer/GanttChart"
-@onready var process_table = $"Main Layout/VBoxContainer/PanelContainer3/MarginContainer/ProcessTable"
+@onready var input_panel = %InputPanel
+@onready var results_panel = %ResultsPanel
+@onready var gantt_chart = %GanttChart
+@onready var process_table = %ProcessTable
 
 func _ready():
 	input_panel.simulation_requested.connect(_on_simulation_requested)

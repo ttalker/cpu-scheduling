@@ -6,7 +6,6 @@ var burst_time: int
 var priority: int
 var response_time: int
 
-
 # to be computed by the scheduler
 var completion_time: int
 var remaining_time: int  

@@ -19,17 +19,27 @@ offset_bottom = 31.0
 theme_override_constants/separation = 40
 
 [node name="IDLabel" type="Label" parent="Inputs" unique_id=954037977]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="ArrivalInput" type="LineEdit" parent="Inputs" unique_id=1707258230]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="BurstInput" type="LineEdit" parent="Inputs" unique_id=425599960]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="PriorityInput" type="LineEdit" parent="Inputs" unique_id=739324709]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="DeleteBtn" type="Button" parent="Inputs" unique_id=2113351038]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-text = "X"
+text = "🗑️"

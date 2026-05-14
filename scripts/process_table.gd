@@ -5,6 +5,8 @@ extends VBoxContainer
 func _ready():
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
+# fill in the table
+
 func populate(processes: Array):
 	var children = table_container.get_children()
 	for i in range(1, children.size()):
